@@ -8,6 +8,6 @@ namespace charge_box.classes
 {
     public interface IDisplay
     {
-
+        void DisplayMessage<T>(T typeOfMessage, string message);    
     }
 }

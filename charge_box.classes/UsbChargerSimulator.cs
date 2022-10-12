@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Timers;
 
-namespace UsbSimulator
+namespace charge_box.classes
 {
     public class UsbChargerSimulator : IUsbCharger
     {
