@@ -23,8 +23,9 @@ Futher more, the implementation of the tests should be the first thing tackled.
 
 ## Using CI with Jinkins 
 
-The Jinkins CI system was set up as the first thing, besides creating the empry projects. 
-This meant that from the early developet, writing testeble code and its test where on the top of the minds of the developers. 
-It allso allowed the development to be tracked, with the additions of test, and their results. 
+The Jenkins CI system was set up as the first thing, besides creating the empty projects. 
+This meant that from the early development, writing testable code and its test where on the top of the minds of the developers. 
+It also allowed the development to be tracked, with the additions of test, and their results. 
+
 
 
