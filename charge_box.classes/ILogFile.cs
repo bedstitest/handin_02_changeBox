@@ -1,53 +1,56 @@
 namespace charge_box.classes
 {
 
-
+    
     public interface ILogFile
     {
-        event LogDoorUnlocked<DoorOpenedEventArgs> DoorOpenedEvent;
-        event LogDoorLocked<DoorClosedEventArgs> DoorClosedEvent;
-    }
-
-    public class DoorOpenedEventArgs : EventArgs
-    {
-        public string Time {get;set; }
-    }
-
-    public class DoorClosedEventArgs : EventArgs
-    {
-        public string Time {get;set; }
+        public void LogDoorUnlocked(int id, DateTime TimeOfEvent);
+        public void LogDoorLocked(int id, DateTime TimeOfEvent);
     }
 
 
     public class LogFile : ILogFile
     {
-        private readonly string path;
-        private string time;
 
-        public event EventHandler<DoorOpenedEventArgs> DoorOpenedEvent;
-        public event EventHandler<DoorClosedEventArgs> DoorClosedEvent;
-        public void logfileOpened(object o, string DoorOpenedTime)
+        private int idnum;
+
+        public void LogDoorLocked(int id, DateTime TimeOfEvent)
         {
-            onDooropened(new DoorOpenedEventArgs {Time = DoorOpenedTime});
+            string message = "Door Has been Locked: " + DoorClosedTime;
+            TimeOfEvent = GetCurrentTime();
+            WriteToLog(id, message);
 
         }
 
-        public void logfileClosed(object o, string DoorClosedTime)
+        public void LogDoorUnlocked(int id, DateTime TimeOfEvent)
         {
-            onDoorClosed(new DoorClosedEventArgs {Time = DoorClosedTime});
+            OnDoorOpened();
+            string message = "Door has been unlocked" + DoorOpenedTime;
+            WriteToLog(id, message);
         }
 
-
-         protected virtual void onDoorOpened(DoorOpenedEventArgs e)
+        public DateTime GetCurrentTime()
         {
-            DoorOpenedEvent?.invoke(this.e);
+            return DateTime.Now;
         }
 
-        protected virtual void onDoorClosed(DoorClosedEventArgs e)
+        public static async Task WriteToLog(int id, string message)
         {
-            DoorClosedEvent?.invoke(this.e);
+            string text =
+                $"Id number: " + id + "Message: " + message;
+            
+            await File.WriteAllTextAsync("Logfile.txt", text);
         }
 
+        private void OnDoorOpened()
+        {
+            DoorOpenedEvent?.Invoke(this, new DoorClosedEventArgs() {DoorOpenedTime = this.GetCurrentTime()});
+        }
+
+        private void OnDoorClosed()
+        {
+            DoorClosedEvent?.Invoke(this, new DoorOpenedEventArgs() {DoorClosedTime = this.GetCurrentTime()});
+        }
 
     }
 
