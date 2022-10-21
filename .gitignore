@@ -5,6 +5,7 @@
 *.DS_store
 *.svp
 *.vs_code
+*.idea
 # 
 out/* 
 
