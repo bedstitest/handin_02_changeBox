@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace charge_box.classes
 {
-    public interface IDisplay
+    public interface IDisplay<in T>
     {
-        void DisplayMessage<T>(T typeOfMessage, string message);    
+        void DisplayMessage(T typeOfMessage, string message);    
     }
 }

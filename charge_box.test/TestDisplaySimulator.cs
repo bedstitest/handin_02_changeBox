@@ -3,9 +3,19 @@ using charge_box.classes;
 namespace charge_box.test;
 
 [TestFixture]
-public class TestDisplaySimulator
+public class TestDisplaySimulatr
 {
-   private IDisplay  uut_;
    
+   private IDisplay<string> _uut;
+
+   [SetUp]
+   public void Setup()
+   {
+      _uut = new displaySimulator();
+   }
    
+
+
+
+
 }

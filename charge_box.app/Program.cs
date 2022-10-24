@@ -1,3 +1,5 @@
+using charge_box.classes;
+
 class Program
 {
     static void Main(string[] args)
@@ -5,10 +7,12 @@ class Program
         // Assemble your system here from all the classes
 
         bool finish = false;
+        IDisplay<string> display = new displaySimulator();
+        
         do
         {
             string input;
-            System.Console.WriteLine("Indtast E, O, C, R: ");
+            display.DisplayMessage("menu","Enter E, O, C, R: ");
             input = Console.ReadLine();
             if (string.IsNullOrEmpty(input)) continue;
 
