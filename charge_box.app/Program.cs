@@ -11,31 +11,42 @@ class Program
         
         do
         {
-            string input;
+            display.DisplayMessage("systemInfo", 
+                $"width: {Console.BufferWidth} & {Console.WindowWidth} Height: {Console.BufferHeight} & {Console.WindowHeight} ({Console.GetCursorPosition()})".PadLeft(Console.BufferWidth));
             display.DisplayMessage("menu","Enter E, O, C, R: ");
-            input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input)) continue;
-
-            switch (input[0])
+            var input = Console.ReadKey(true);
+            switch (input.Key)
             {
-                case 'E':
+                case ConsoleKey.E:
                     finish = true;
                     break;
-
-                case 'O':
+                case ConsoleKey.O:
                     //door.OnDoorOpen();
                     break;
 
-                case 'C':
+                case ConsoleKey.C:
                     //door.OnDoorClose();
                     break;
 
-                case 'R':
-                    //System.Console.WriteLine("Indtast RFID id: ");
-                    //string idString = System.Console.ReadLine();
-
-                    //int id = Convert.ToInt32(idString);
-                    //rfidReader.OnRfidRead(id);
+                case ConsoleKey.R:
+                    display.DisplayMessage("user","Indtast RFID id: ");
+                    string idString = System.Console.ReadLine();
+                    int id = Convert.ToInt32(idString);
+                    display.DisplayMessage("status", $"registered RFid: {id}"); 
+                    break;
+                
+                // vim movement for testing stuff... 
+                case ConsoleKey.H:
+                    Console.CursorLeft += Console.CursorLeft > 0 ? -1 : 0;
+                    break;
+                case ConsoleKey.L:
+                    Console.CursorLeft += Console.CursorLeft < Console.BufferWidth-1 ? 1 : 0;
+                    break;
+                case ConsoleKey.J:
+                    Console.CursorTop += Console.CursorTop < Console.BufferHeight-1 ? 1 : 0;
+                    break;
+                case ConsoleKey.K:
+                    Console.CursorTop += Console.CursorTop > 0 ? -1 : 0;
                     break;
 
                 default:

@@ -4,9 +4,11 @@ public class displaySimulator : IDisplay<string>
 {
     public displaySimulator()
     {
-        messageTypes.Add("menu", 0);
-        messageTypes.Add("user", 1);
-        messageTypes.Add("status", 2);
+        messageTypes.Add("menu", 1);
+        messageTypes.Add("user", 2);
+        messageTypes.Add("status", 3);
+        messageTypes.Add("systemInfo", 0);
+        Console.Clear();
     }
     public void DisplayMessage(string typeOfMessage, string message)
     {
@@ -17,9 +19,10 @@ public class displaySimulator : IDisplay<string>
     {
         var curPos = Console.GetCursorPosition();
         Console.SetCursorPosition(0, typeOfMessage);
-        Console.Write(message.PadLeft(Console.BufferWidth), ' ');
+        Console.Write(message.PadRight(Console.BufferWidth-1), ' ');
         Console.SetCursorPosition(curPos.Left, curPos.Top);
     }
 
     public readonly IDictionary<string, int> messageTypes = new Dictionary<string, int>();
+
 }
