@@ -6,6 +6,7 @@
 *.svp
 *.vs_code
 *.idea
+*.x/*
 # 
 out/* 
 
