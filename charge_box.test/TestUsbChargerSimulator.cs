@@ -1,13 +1,6 @@
-﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using charge_box.classes;
+﻿using charge_box.classes;
 
-namespace UsbSimulator.Test
+namespace charge_box.test
 {
     [TestFixture]
     public class TestUsbChargerSimulator

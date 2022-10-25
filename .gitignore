@@ -5,7 +5,12 @@
 *.DS_store
 *.svp
 *.vs_code
-# 
+*.idea
+# The x files 
+# if you want a folder relevant for the project, but is not stored in the git. 
+# the X files is your place
+*.x/*
+ 
 out/* 
 
 # User-specific files
