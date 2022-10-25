@@ -1,3 +1,5 @@
+using charge_box.classes;
+
 namespace charge_box.test;
 
 [TestFixture]
