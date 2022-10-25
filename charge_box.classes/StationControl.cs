@@ -23,11 +23,32 @@ namespace charge_box.classes
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _door;
-
+        private IRfidReader _rfidReader;
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-
+        /// <summary>
+        /// The constructor of the class StationControl
+        /// </summary>
+        /// <param name="rfidReader"> parameter for initiating the private field _rfidReader</param>
+        /// <param name="charger"> parameter for initiating the private field _charger</param>
+        /// <param name="door"> parameter for initiating the private field _door</param>
+        StationControl(IRfidReader rfidReader, IChargeControl charger, IDoor door)
+        {
+            _door = door;
+            _charger = charger;
+            _rfidReader = rfidReader;
+            _rfidReader.RfidValueEvent += RfidDetectedEvent;
+        }
+        /// <summary>
+        /// This function serves as a glue between the event source and the RfidDetected function
+        /// </summary>
+        /// <param name="sender">The sender of the event - probably not needed at the moment</param>
+        /// <param name="e">The values from the event - here the Id is passed to the RfidDetected function</param>
+        private void RfidDetectedEvent(object sender, RfidDetectedEventArgs e)
+        {
+            RfidDetected(e.Id);
+        }
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
         {
