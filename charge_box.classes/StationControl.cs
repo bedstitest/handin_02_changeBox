@@ -18,7 +18,6 @@ namespace charge_box.classes
             DoorOpen
         };
 
-        // Her mangler flere member variable
         private ChargeboxState _state;
         private IChargeControl _charger;
         private IDoor _door;
@@ -26,7 +25,8 @@ namespace charge_box.classes
         private ILogFile _logFile;
         private IRfidReader _rfidReader;
 
-        private int _oldId;
+        public int OldId { get; private set; }
+        public bool DoorOpen { get; private set; }
 
         public StationControl(IChargeControl charger, IDoor door, IDisplay display, ILogFile logFile, IRfidReader rfidReader)
         {
@@ -45,25 +45,28 @@ namespace charge_box.classes
 
         private void DoorOpened()
         {
+            DoorOpen = true;
             _display.DisplayMessage(1, "Please connect ye olde phone");
+            _state = ChargeboxState.DoorOpen;
         }
         private void DoorClosed()
         {
+            DoorOpen = false;
             _display.DisplayMessage(1, "Please use ye taggy thingy");
+            _state = ChargeboxState.Available;
         }
 
-        // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
         {
             switch (_state)
             {
                 case ChargeboxState.Available:
-                    // Check for ladeforbindelse
+                    // Check for charger connection
                     if (_charger.IsConnected)
                     {
                         _door.LockDoor();
                         _charger.StartCharge();
-                        _oldId = id;
+                        OldId = id;
                         _logFile.LogDoorUnlocked(id, DateTime.Now);
 
                         _display.DisplayMessage(1, "Charge box is locked and phone is charging. Use ye taggy thingy to unlock");
@@ -81,7 +84,7 @@ namespace charge_box.classes
 
                 case ChargeboxState.Locked:
                     // Check for correct ID
-                    if (id == _oldId)
+                    if (id == OldId)
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
