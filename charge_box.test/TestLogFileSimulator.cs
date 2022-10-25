@@ -19,10 +19,10 @@ public class TestLogFileSimulator
     [Test]
     public void LogDoorUnlocked_assertFilePath_correct()
     {
-        _uut.FilePath_ = Environment.CurrentDirectory;
+        string FilePath_ = Environment.CurrentDirectory;
         _idnumber = 123;
         _uut.LogDoorUnlocked(_idnumber, _logDate = _uut.GetCurrentTime());
-        if (File.Exists(_uut.FilePath_ + _idnumber))
+        if (File.Exists(FilePath_ + _idnumber))
         {
             _CheckIfFileExist = true;
         }
@@ -37,11 +37,11 @@ public class TestLogFileSimulator
     [Test]
     public void LogDoorUnlocked_assertFilePath_Notcorrect()
     {
-        _uut.FilePath_ = Environment.CurrentDirectory;
+        string FilePath_ = Environment.CurrentDirectory;
         _idnumber = 123;
         _CheckIfFileExist = true;
         _uut.LogDoorUnlocked(_idnumber, _logDate = _uut.GetCurrentTime());
-        if (File.Exists(_uut.FilePath_ + "ShouldntExist.txt"))
+        if (File.Exists(FilePath_ + "ShouldntExist.txt"))
         {
             _CheckIfFileExist = true;
         }
@@ -56,10 +56,10 @@ public class TestLogFileSimulator
     [Test]
     public void LogDoorlocked_assertFilePath_correct()
     {
-        _uut.FilePath_ = Environment.CurrentDirectory;
+        string FilePath_ = Environment.CurrentDirectory;
         _idnumber = 123;
         _uut.LogDoorLocked(_idnumber, _logDate = _uut.GetCurrentTime());
-        if (File.Exists(_uut.FilePath_ + _idnumber))
+        if (File.Exists(FilePath_ + _idnumber))
         {
             _CheckIfFileExist = true;
         }
@@ -74,11 +74,11 @@ public class TestLogFileSimulator
     [Test]
     public void LogDoorlocked_assertFilePath_Notcorrect()
     {
-        _uut.FilePath_ = Environment.CurrentDirectory;
+        string FilePath_ = Environment.CurrentDirectory;
         _idnumber = 123;
         _CheckIfFileExist = true;
         _uut.LogDoorLocked(_idnumber, _logDate = _uut.GetCurrentTime());
-        if (File.Exists(_uut.FilePath_ + "ShouldntExist.txt"))
+        if (File.Exists(FilePath_ + "ShouldntExist.txt"))
         {
             _CheckIfFileExist = true;
         }
@@ -100,11 +100,22 @@ public class TestLogFileSimulator
     }
 
     [Test]
-    public void Test_StringisNotNull()
+    public void CheckifFileisNotEmpty()
     {
-        Assert.That(_uut.FilePath_, Is.Not.Empty);
-    }
+        bool Fileisnotempty = true;
+        string FilePath_ = Environment.CurrentDirectory;
+        int id = 23;
+        var testTime = new DateTime(2022, 10, 13);
+        _uut.LogDoorUnlocked(id, testTime);
 
+        if (new FileInfo(FilePath_+id+ "logfile.txt").Length == 0)
+        {
+            
+            Fileisnotempty = false;
+        }
+        Assert.That(Fileisnotempty, Is.EqualTo(false));
+
+    }
 
 
 

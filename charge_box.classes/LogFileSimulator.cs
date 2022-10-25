@@ -1,19 +1,18 @@
 ﻿namespace charge_box.classes
 {
     public class LogFileSimulator : ILogFile
-    {
-        public string FilePath_ = Environment.CurrentDirectory;
+    {        
+
         public void LogDoorLocked(int id, DateTime TimeOfEvent)
         {
             string message = "Door Has been Locked: " + TimeOfEvent;
-            TimeOfEvent = GetCurrentTime();
-            WriteToLog(id, message);
+            var task = WriteToLog(id, message, TimeOfEvent);
         }
 
         public void LogDoorUnlocked(int id, DateTime TimeOfEvent)
         {
-            string message = "Door has been unlocked: " + TimeOfEvent;
-            WriteToLog(id, message);
+            string message = "Door has been unlocked: ";
+            var task = WriteToLog(id, message, TimeOfEvent);
         }
 
         public DateTime GetCurrentTime()
@@ -21,23 +20,36 @@
             return DateTime.Now;
         }
         
-        public void WriteToLog(int id, string message)
+        public static async Task WriteToLog(int id, string message, DateTime TimeOfEvent)
         {
 
-            if (!File.Exists(FilePath_ + id + ".txt"))
+            var workingDirectory = Environment.CurrentDirectory;
+            var filename = "logfile.txt";
+            var file = $"{workingDirectory}{filename}";
+            
+
+            if (!File.Exists(id+file))
             {
-                // Create a file to write to.
-                using (StreamWriter sw = File.CreateText(FilePath_ + id + ".txt"))
+                //If file doesnt exist, create a file to write to.
+                string[] lines =
                 {
-                    sw.WriteLine("Message: " + message);
-                    sw.WriteLine(GetCurrentTime());
-                }
+                    "New logging: ",
+                    "Id: " + id.ToString(),
+                    "Message: " + message,
+                    "Time of event: " + TimeOfEvent.ToString()
+
+                };
+                await File.WriteAllLinesAsync("logfile.txt", lines);
             }
             else
             {
-                Console.WriteLine("Rfid already saved");
+                using StreamWriter appendfile = new(id+"logfile.txt", append: true);
+                await appendfile.WriteLineAsync(
+                    "Id: " + id.ToString() + "\n Message: " + 
+                    message + "\nTime of event: " + 
+                    TimeOfEvent.ToString() + "\n");
             }
-
+                
         }
 
     }
