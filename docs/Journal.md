@@ -19,7 +19,7 @@ integration system (observationer, fordele og ulemper))-->
 ## Members:
 |   | Name                         | Student number |   |   |
 |---|------------------------------|----------------|---|---|
-| 1 | Atren amanoel darvesh        | 201405993      |   |   |
+| 1 | Atren Amanoel Darvesh        | 201405993      |   |   |
 | 2 | Simon Hjortgaard Bos         | 201910459      |   |   |
 | 3 | Mathias Birk Olsen           | 202008722      |   |   |
 | 4 | Oliver Vestergaard Schousboe | 202008211      |   |   |
