@@ -15,7 +15,6 @@ namespace charge_box.classes
             get => id;
             set
             {
-                if (id == value) return;
                 OnRfidDetected(new RfidDetectedEventArgs(){Id = value});
                 id = value;
             }
