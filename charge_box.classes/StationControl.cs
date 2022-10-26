@@ -21,6 +21,7 @@ namespace charge_box.classes
         private ChargeboxState _state;
         private IChargeControl _charger;
         private IDoor _door;
+
         private IDisplay _display;
         private ILogFile _logFile;
         private IRfidReader _rfidReader;
@@ -55,6 +56,7 @@ namespace charge_box.classes
             _display.DisplayMessage(1, "Please use ye taggy thingy");
             _state = ChargeboxState.Available;
         }
+
 
         private void RfidDetected(int id)
         {

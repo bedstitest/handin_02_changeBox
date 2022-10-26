@@ -25,4 +25,8 @@
     <ProjectReference Include="..\charge_box.classes\charge_box.classes.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\charge_box.classes\charge_box.classes.csproj" />
+  </ItemGroup>
+
 </Project>
