@@ -10,7 +10,7 @@ namespace charge_box.classes
             id = 0;
         }
 
-        public int SetId
+        public int Id
         {
             get => id;
             set

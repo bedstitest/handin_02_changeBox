@@ -20,7 +20,7 @@ namespace charge_box.test
         public void Setup()
         {
             _uut = new RfidReaderSimulator();
-            _uut.RfidValueEvent += (sender, args) => _RfidDetectedEventArgs = args;
+            _uut.RfidValueEvent += (o, args) => _RfidDetectedEventArgs = args;
             
         }
 
@@ -32,10 +32,17 @@ namespace charge_box.test
 
         //Can't test event? Event is called by StationContrion?
         [Test]
-        public void OnTestReadEvent()
+        public void SetId_OnDetectEvent()
         {
-          _uut.SetId = 1;
+          _uut.Id = 1;
           Assert.That(_RfidDetectedEventArgs.Id, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void SetId_changeValue()
+        {
+            _uut.Id = 2;
+            Assert.That(_uut.id, Is.EqualTo(2));
         }
 
     }
