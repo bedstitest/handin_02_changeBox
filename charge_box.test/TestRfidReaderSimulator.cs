@@ -29,16 +29,16 @@ namespace charge_box.test
         [Test]
         public void ctor_IdIsZero()
         {
-            Assert.That(_uut.id, Is.EqualTo(1));
+            Assert.That(_uut.id, Is.EqualTo(0));
         }
 
         //Can't test event? Event is called by StationContrion?
-        //[Test]
-        //public void OnTestReadEvent()
-        //{
-        //  uut.OnRfidDetected();
-        //  Assert.That(_RfidDetectedEventArgs, ???);
-        //}
+        [Test]
+        public void OnTestReadEvent()
+        {
+          _uut.SetId = 1;
+          Assert.That(_RfidDetectedEventArgs.Id, Is.EqualTo(1));
+        }
 
     }
 }

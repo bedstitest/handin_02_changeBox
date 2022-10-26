@@ -1,4 +1,3 @@
-using UsbSimulator;
 
 namespace charge_box.classes
 {

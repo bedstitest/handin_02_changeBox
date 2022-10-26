@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Timers;
-using UsbSimulator;
 
 namespace charge_box.classes
 {
