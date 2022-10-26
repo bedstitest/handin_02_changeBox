@@ -1,3 +1,21 @@
+<!-- Journalen skal være 5-15 sider lang. Den skal indeholde:
+1. Gruppenummer
+2. Gruppens medlemmer med studienumre
+3. URL for GitHub-repositoriet
+4. URL for Jenkins-jobbet
+5. Klasse-, sekvens- og andre nyttige diagrammer med forklaringer, som beskriver jeres testbare
+design, opbygningen af jeres løsning og dens opførsel
+6. Jeres design skal tage højde for den ikke eksisterende hardware og andre svært kontrollerbare
+afhængigheder og indkapsle dem, således at der kan testes gennem fakes
+7. En refleksion over jeres valgte design (hvorfor, fordele og ulemper, ikke en beskrivelse, den gav
+I ovenfor)
+8. En beskrivelse og refleksion over hvordan I har valgt at teste
+9. En beskrivelse og refleksion over hvordan I fordelte arbejdet imellem jer (hvordan, hvorfor,
+fordele og ulemper)
+10. En refleksion over hvordan arbejdet gik med at bruge et fælles repository og et continuous
+integration system (observationer, fordele og ulemper))-->
+
+
 # This is our Journal
 Its a bad idea to have the dock here. This
 
