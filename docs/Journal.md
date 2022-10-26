@@ -15,9 +15,14 @@ fordele og ulemper)
 10. En refleksion over hvordan arbejdet gik med at bruge et fælles repository og et continuous
 integration system (observationer, fordele og ulemper))-->
 
-
-# This is our Journal
-Its a bad idea to have the dock here. This
+# Group 4 handin information
+## Members:
+|   | Name                         | Student number |   |   |
+|---|------------------------------|----------------|---|---|
+| 1 | Atren amanoel darvesh        | 201405993      |   |   |
+| 2 | Simon Hjortgaard Bos         | 201910459      |   |   |
+| 3 | Mathias Birk Olsen           | 202008722      |   |   |
+| 4 | Oliver Vestergaard Schousboe | 202008211      |   |   |
 
 ## Links
 [Jenkins](http://ci3.ase.au.dk:8080/job/team04E22ChargeBox/)
