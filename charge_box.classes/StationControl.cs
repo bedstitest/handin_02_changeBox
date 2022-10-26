@@ -11,98 +11,109 @@ namespace charge_box.classes
     public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        private enum ChargeboxState
         {
             Available,
             Locked,
             DoorOpen
         };
 
-        // Her mangler flere member variable
-        private LadeskabState _state;
+        private ChargeboxState _state;
         private IChargeControl _charger;
-        private int _oldId;
         private IDoor _door;
-        private IRfidReader _rfidReader;
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        // Her mangler constructor
-        /// <summary>
-        /// The constructor of the class StationControl
-        /// </summary>
-        /// <param name="rfidReader"> parameter for initiating the private field _rfidReader</param>
-        /// <param name="charger"> parameter for initiating the private field _charger</param>
-        /// <param name="door"> parameter for initiating the private field _door</param>
-        StationControl(IRfidReader rfidReader, IChargeControl charger, IDoor door)
+        private IDisplay _display;
+        private ILogFile _logFile;
+        private IRfidReader _rfidReader;
+
+        public int OldId { get; private set; }
+        public bool DoorOpen { get; private set; }
+
+        public StationControl(IChargeControl charger, IDoor door, IDisplay display, ILogFile logFile, IRfidReader rfidReader)
         {
-            _door = door;
+            _state = ChargeboxState.Available;
+
             _charger = charger;
+            _door = door;
+            _display = display;
+            _logFile = logFile;
             _rfidReader = rfidReader;
+
+            _door.DoorOpenedEvent += HandleDoorOpenedEvent;
+            _door.DoorClosedEvent += HandleDoorClosedEvent;
             _rfidReader.RfidValueEvent += RfidDetectedEvent;
         }
-        /// <summary>
-        /// This function serves as a glue between the event source and the RfidDetected function
-        /// </summary>
-        /// <param name="sender">The sender of the event - probably not needed at the moment</param>
-        /// <param name="e">The values from the event - here the Id is passed to the RfidDetected function</param>
-        private void RfidDetectedEvent(object sender, RfidDetectedEventArgs e)
+
+        private void DoorOpened()
         {
-            RfidDetected(e.Id);
+            DoorOpen = true;
+            _display.DisplayMessage(1, "Please connect ye olde phone");
+            _state = ChargeboxState.DoorOpen;
         }
-        // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
+        private void DoorClosed()
+        {
+            DoorOpen = false;
+            _display.DisplayMessage(1, "Please use ye taggy thingy");
+            _state = ChargeboxState.Available;
+        }
+
+
         private void RfidDetected(int id)
         {
             switch (_state)
             {
-                case LadeskabState.Available:
-                    // Check for ladeforbindelse
+                case ChargeboxState.Available:
+                    // Check for charger connection
                     if (_charger.IsConnected)
                     {
                         _door.LockDoor();
                         _charger.StartCharge();
-                        _oldId = id;
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
+                        OldId = id;
+                        _logFile.LogDoorUnlocked(id, DateTime.Now);
 
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
-                        _state = LadeskabState.Locked;
+                        _display.DisplayMessage(1, "Charge box is locked and phone is charging. Use ye taggy thingy to unlock");
+                        _state = ChargeboxState.Locked;
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.DisplayMessage(1, "Ye phone is not properly connected. Try once again");
                     }
-
                     break;
 
-                case LadeskabState.DoorOpen:
+                case ChargeboxState.DoorOpen:
                     // Ignore
                     break;
 
-                case LadeskabState.Locked:
+                case ChargeboxState.Locked:
                     // Check for correct ID
-                    if (id == _oldId)
+                    if (id == OldId)
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
+                        _logFile.LogDoorUnlocked(id, DateTime.Now);
 
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
-                        _state = LadeskabState.Available;
+                        _display.DisplayMessage(1, "Pick up ye phone and close the door");
+                        _state = ChargeboxState.Available;
                     }
                     else
                     {
-                        Console.WriteLine("Forkert RFID tag");
+                        _display.DisplayMessage(1, "You have no power here!");
                     }
-
                     break;
             }
         }
 
-        // Her mangler de andre trigger handlere
+        private void HandleDoorOpenedEvent(object s, DoorOpenedEventArgs e)
+        {
+            DoorOpened();
+        }
+        private void HandleDoorClosedEvent(object s, DoorClosedEventArgs e)
+        {
+            DoorClosed();
+        }
+        private void RfidDetectedEvent(object s, RfidDetectedEventArgs e)
+        {
+            RfidDetected(e.Id);
+        }
     }
 }

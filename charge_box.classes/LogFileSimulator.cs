@@ -1,4 +1,6 @@
-﻿namespace charge_box.classes
+﻿using System.IO;
+
+namespace charge_box.classes
 {
     public class LogFileSimulator : ILogFile
     {        
@@ -20,15 +22,17 @@
             return DateTime.Now;
         }
         
+
+
         public static async Task WriteToLog(int id, string message, DateTime TimeOfEvent)
         {
 
             var workingDirectory = Environment.CurrentDirectory;
             var filename = "logfile.txt";
-            var file = $"{workingDirectory}{filename}";
+            var file = $"{workingDirectory}/{filename}";
             
 
-            if (!File.Exists(id+file))
+            if (!(File.Exists(file)))
             {
                 //If file doesnt exist, create a file to write to.
                 string[] lines =
@@ -40,15 +44,27 @@
 
                 };
                 await File.WriteAllLinesAsync("logfile.txt", lines);
+                
             }
             else
+
             {
-                using StreamWriter appendfile = new(id+"logfile.txt", append: true);
+                /*
+                using StreamWriter appendfile = new("logfile.txt", append: true);
                 await appendfile.WriteLineAsync(
                     "Id: " + id.ToString() + "\n Message: " + 
                     message + "\nTime of event: " + 
                     TimeOfEvent.ToString() + "\n");
+                appendfile.Close();
+                */
+                using (StreamWriter sw = File.AppendText(file))
+                {
+                    sw.WriteLine("Id: " + id.ToString());
+                    sw.WriteLine("Message: " + message);
+                    sw.WriteLine("Time of event: " + TimeOfEvent.ToString());
+                }
             }
+            
                 
         }
 

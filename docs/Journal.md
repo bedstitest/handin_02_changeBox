@@ -1,5 +1,28 @@
-# This is our Journal
-Its a bad idea to have the dock here. This
+<!-- Journalen skal være 5-15 sider lang. Den skal indeholde:
+1. Gruppenummer
+2. Gruppens medlemmer med studienumre
+3. URL for GitHub-repositoriet
+4. URL for Jenkins-jobbet
+5. Klasse-, sekvens- og andre nyttige diagrammer med forklaringer, som beskriver jeres testbare
+design, opbygningen af jeres løsning og dens opførsel
+6. Jeres design skal tage højde for den ikke eksisterende hardware og andre svært kontrollerbare
+afhængigheder og indkapsle dem, således at der kan testes gennem fakes
+7. En refleksion over jeres valgte design (hvorfor, fordele og ulemper, ikke en beskrivelse, den gav
+I ovenfor)
+8. En beskrivelse og refleksion over hvordan I har valgt at teste
+9. En beskrivelse og refleksion over hvordan I fordelte arbejdet imellem jer (hvordan, hvorfor,
+fordele og ulemper)
+10. En refleksion over hvordan arbejdet gik med at bruge et fælles repository og et continuous
+integration system (observationer, fordele og ulemper))-->
+
+# Group 4 handin information
+## Members:
+|   | Name                         | Student Number |
+|---|------------------------------|----------------|
+| 1 | Atren Amanoel Darvesh        | 201405993      |
+| 2 | Simon Hjortgaard Bos         | 201910459      |
+| 3 | Mathias Birk Olsen           | 202008722      |
+| 4 | Oliver Vestergaard Schousboe | 202008211      |
 
 ## Links
 [Jenkins](http://ci3.ase.au.dk:8080/job/team04E22ChargeBox/)
@@ -56,3 +79,5 @@ The display needs to show two different messages to the user.
 This would mean that 
 
 ## StationControl
+The main control class in the system. It reacts on events from the door and RFID reader. On getting an `DoorClosedEvent` or `DoorOpenedEvent` the corresponding method is called, which then calls `Display` to write out a message and then goes on to change `ChargeboxState`. On getting an `RfidDetectedEvent` the corresponding method is called. In here multiple things can happen based on `ChargeboxState`. 
+To test this class we used NSubstitute to make fakes of all dependencies. It was then possible to raise a made up event to check if it is received by the UUT. In a few cases it was necessary to Assert two times in the same test, since we did not wish to have public setter on the state of the state machine. The multiple asserts were namely when checking if the door actually unlocked after having been locked, and closed after having been opened.
