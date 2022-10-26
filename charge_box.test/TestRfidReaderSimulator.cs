@@ -20,10 +20,8 @@ namespace charge_box.test
         public void Setup()
         {
             _uut = new RfidReaderSimulator();
-            _uut.RfidValueEvent += (sender, args) =>
-            {
-                _RfidDetectedEventArgs = args;
-            };
+            _uut.RfidValueEvent += (sender, args) => _RfidDetectedEventArgs = args;
+            
         }
 
         [Test]
