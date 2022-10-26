@@ -1,10 +1,21 @@
+using charge_box.classes;
+
 class Program
 {
     static void Main(string[] args)
     {
-        // Assemble your system here from all the classes
+        var door = new DoorSimulator();
+        IDisplay display = new displaySimulator();
+        //var rfidReader = new RfidReaderSimulator();
+        ILogFile logFile = new LogFileSimulator();
+        IUsbCharger usbCharger = new UsbChargerSimulator();
+        //IChargeControl chargeControl = new ChargeControlSimulator(display, usbCharger);
+
+
+        //var stationControl = new StationControl(chargeControl, door, display, logFile, rfidReader);
 
         bool finish = false;
+
         do
         {
             string input;
@@ -19,18 +30,18 @@ class Program
                     break;
 
                 case 'O':
-                    //door.OnDoorOpen();
+                    door.OnDoorOpen();
                     break;
 
                 case 'C':
-                    //door.OnDoorClose();
+                    door.OnDoorClose();
                     break;
 
                 case 'R':
-                    //System.Console.WriteLine("Indtast RFID id: ");
-                    //string idString = System.Console.ReadLine();
+                    System.Console.WriteLine("Indtast RFID id: ");
+                    string idString = System.Console.ReadLine();
 
-                    //int id = Convert.ToInt32(idString);
+                    int id = Convert.ToInt32(idString);
                     //rfidReader.OnRfidRead(id);
                     break;
 
@@ -41,4 +52,3 @@ class Program
         } while (!finish);
     }
 }
-

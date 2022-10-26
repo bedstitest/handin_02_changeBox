@@ -56,3 +56,5 @@ The display needs to show two different messages to the user.
 This would mean that 
 
 ## StationControl
+The main control class in the system. It reacts on events from the door and RFID reader. On getting an `DoorClosedEvent` or `DoorOpenedEvent` the corresponding method is called, which then calls `Display` to write out a message and then goes on to change `ChargeboxState`. On getting an `RfidDetectedEvent` the corresponding method is called. In here multiple things can happen based on `ChargeboxState`. 
+To test this class we used NSubstitute to make fakes of all dependencies. It was then possible to raise a made up event to check if it is received by the UUT. In a few cases it was necessary to Assert two times in the same test, since we did not wish to have public setter on the state of the state machine. The multiple asserts were namely when checking if the door actually unlocked after having been locked, and closed after having been opened.
