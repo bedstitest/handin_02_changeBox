@@ -47,13 +47,13 @@ namespace charge_box.classes
         private void DoorOpened()
         {
             DoorOpen = true;
-            _display.DisplayMessage(1, "Please connect ye olde phone");
+            _display.DisplayMessage("user", "Please connect ye olde phone");
             _state = ChargeboxState.DoorOpen;
         }
         private void DoorClosed()
         {
             DoorOpen = false;
-            _display.DisplayMessage(1, "Please use ye taggy thingy");
+            _display.DisplayMessage("user", "Please use ye taggy thingy");
             _state = ChargeboxState.Available;
         }
 
@@ -69,14 +69,14 @@ namespace charge_box.classes
                         _door.LockDoor();
                         _charger.StartCharge();
                         OldId = id;
-                        _logFile.LogDoorUnlocked(id, DateTime.Now);
+                        _logFile.LogDoorLocked(id, DateTime.Now);
 
-                        _display.DisplayMessage(1, "Charge box is locked and phone is charging. Use ye taggy thingy to unlock");
+                        _display.DisplayMessage("user", "Charge box is locked and phone is charging. Use ye taggy thingy to unlock");
                         _state = ChargeboxState.Locked;
                     }
                     else
                     {
-                        _display.DisplayMessage(1, "Ye phone is not properly connected. Try once again");
+                        _display.DisplayMessage("user", "Ye phone is not properly connected. Try once again");
                     }
                     break;
 
@@ -92,12 +92,12 @@ namespace charge_box.classes
                         _door.UnlockDoor();
                         _logFile.LogDoorUnlocked(id, DateTime.Now);
 
-                        _display.DisplayMessage(1, "Pick up ye phone and close the door");
+                        _display.DisplayMessage("user", "Pick up ye phone and close the door");
                         _state = ChargeboxState.Available;
                     }
                     else
                     {
-                        _display.DisplayMessage(1, "You have no power here!");
+                        _display.DisplayMessage("user", "You have no power here!");
                     }
                     break;
             }
