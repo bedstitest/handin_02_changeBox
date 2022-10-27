@@ -1,28 +1,30 @@
 namespace charge_box.classes;
 
-public class displaySimulator : IDisplay<string>
+public class DisplaySimulator : IDisplay<string>
 {
-    public displaySimulator()
+    private int _width; 
+    public DisplaySimulator()
     {
-        messageTypes.Add("menu", 1);
-        messageTypes.Add("user", 2);
-        messageTypes.Add("status", 3);
-        messageTypes.Add("systemInfo", 0);
+        _messageTypes.Add("menu", 1);
+        _messageTypes.Add("user", 2);
+        _messageTypes.Add("status", 3);
+        _messageTypes.Add("systemInfo", 0);
         Console.Clear();
+        _width = Console.BufferWidth;
     }
     public void DisplayMessage(string typeOfMessage, string message)
     {
-        var type = messageTypes[typeOfMessage];
-        printMessage(type, message);
+        var type = _messageTypes[typeOfMessage];
+        PrintMessage(type, message);
     }
-    private void printMessage(int typeOfMessage, string message)
+    private void PrintMessage(int typeOfMessage, string message)
     {
         var curPos = Console.GetCursorPosition();
         Console.SetCursorPosition(0, typeOfMessage);
-        Console.Write(message.PadRight(Console.BufferWidth-1), ' ');
+        Console.Write(message.PadRight(_width-2) + "\n");
         Console.SetCursorPosition(curPos.Left, curPos.Top);
     }
 
-    public readonly IDictionary<string, int> messageTypes = new Dictionary<string, int>();
+    private readonly IDictionary<string, int> _messageTypes = new Dictionary<string, int>();
 
 }

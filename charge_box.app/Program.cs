@@ -7,7 +7,7 @@ class Program
         // Assemble your system here from all the classes
 
         bool finish = false;
-        IDisplay<string> display = new displaySimulator();
+        IDisplay<string> display = new DisplaySimulator();
         
         do
         {
@@ -34,8 +34,9 @@ class Program
                     int id = Convert.ToInt32(idString);
                     display.DisplayMessage("status", $"registered RFid: {id}"); 
                     break;
-                
+               case ConsoleKey.A :
                 // vim movement for testing stuff... 
+                    break;
                 case ConsoleKey.H:
                     Console.CursorLeft += Console.CursorLeft > 0 ? -1 : 0;
                     break;
