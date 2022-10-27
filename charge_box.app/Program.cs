@@ -4,6 +4,14 @@ class Program
 {
     static void Main(string[] args)
     {
+        var door = new DoorSimulator();
+        //var rfidReader = new RfidReaderSimulator();
+        ILogFile logFile = new LogFileSimulator();
+        IUsbCharger usbCharger = new UsbChargerSimulator();
+        //IChargeControl chargeControl = new ChargeControlSimulator(display, usbCharger);
+
+
+        //var stationControl = new StationControl(chargeControl, door, display, logFile, rfidReader);
         // Assemble your system here from all the classes
 
         bool finish = false;

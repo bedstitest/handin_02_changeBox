@@ -24,6 +24,7 @@ public class TestDisplaySimulator
    {
      File.Delete(_testOutputString);
    }
+
    [Test]
    public void TestingNotExistingDisplayArea()
    {
@@ -53,15 +54,7 @@ public class TestDisplaySimulator
 
       var output = sw.ToString();
       Assert.That(output, Is.EqualTo(correct));
-      
-
 
    }
-   
-   
-   
-
-
-
 
 }
