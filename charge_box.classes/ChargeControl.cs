@@ -9,10 +9,10 @@ namespace charge_box.classes
     public class ChargeControl : IChargeControl
     {
         public bool IsConnected { get; }
-        private IDisplay _display;
+        private IDisplay<string> _display;
         private IUsbCharger _charger;
 
-        public ChargeControl(IDisplay display, IUsbCharger charger)
+        public ChargeControl(IDisplay<string> display, IUsbCharger charger)
         {
             _display = display;
             _charger = charger;

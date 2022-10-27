@@ -22,14 +22,14 @@ namespace charge_box.classes
         private IChargeControl _charger;
         private IDoor _door;
 
-        private IDisplay _display;
+        private IDisplay<string> _display;
         private ILogFile _logFile;
         private IRfidReader _rfidReader;
 
         public int OldId { get; private set; }
         public bool DoorOpen { get; private set; }
 
-        public StationControl(IChargeControl charger, IDoor door, IDisplay display, ILogFile logFile, IRfidReader rfidReader)
+        public StationControl(IChargeControl charger, IDoor door, IDisplay<string> display, ILogFile logFile, IRfidReader rfidReader)
         {
             _state = ChargeboxState.Available;
 
