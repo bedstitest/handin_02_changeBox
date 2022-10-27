@@ -18,7 +18,6 @@ public class DisplaySimulator : IDisplay<string>
         _messageTypes.Add("user", 2);
         _messageTypes.Add("status", 3);
         _messageTypes.Add("systemInfo", 0);
-        Console.Clear();
         _width = Console.BufferWidth;
     }
     /// <summary>
