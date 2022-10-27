@@ -2,7 +2,15 @@ namespace charge_box.classes;
 
 public class DisplaySimulator : IDisplay<string>
 {
-    private int _width; 
+    /// <summary>
+    /// The _width variable saves the width of the buffer at start up.
+    /// This display does not support  variable size buffers
+    /// </summary>
+    private readonly int _width; 
+    /// <summary>
+    /// The constructor crates the 4 areas available to print in.
+    /// It then clears the buffer and saves the width.
+    /// </summary>
     public DisplaySimulator()
     {
         _messageTypes.Add("menu", 1);
@@ -12,15 +20,15 @@ public class DisplaySimulator : IDisplay<string>
         Console.Clear();
         _width = Console.BufferWidth;
     }
+    /// <summary>
+    /// This prints the message its correct area, while clearing the content already there.
+    /// </summary>
+    /// <param name="typeOfMessage">"SystemInfo", "menu", "user" or "status" as valid options</param>
+    /// <param name="message">anything goes, along as its a string</param>
     public void DisplayMessage(string typeOfMessage, string message)
     {
-        var type = _messageTypes[typeOfMessage];
-        PrintMessage(type, message);
-    }
-    private void PrintMessage(int typeOfMessage, string message)
-    {
         var curPos = Console.GetCursorPosition();
-        Console.SetCursorPosition(0, typeOfMessage);
+        Console.SetCursorPosition(0, _messageTypes[typeOfMessage]);
         Console.Write(message.PadRight(_width-2) + "\n");
         Console.SetCursorPosition(curPos.Left, curPos.Top);
     }
