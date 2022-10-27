@@ -2,11 +2,9 @@ namespace charge_box.classes
 {
     public class DoorOpenedEventArgs : EventArgs
     {
-        public DateTime DoorOpenedTime { get; set; }
     }
     public class DoorClosedEventArgs : EventArgs
     {
-        public DateTime DoorClosedTime { get; set; }
     }
     public interface IDoor
     {
