@@ -97,7 +97,8 @@ The `UsbChargerSimulator` class was a part of the handout along with an interfac
 
 ### StationControl
 To test this class NSubstitute was used to make fakes of all dependencies. To use the dependancy-fakes the StationContol class uses constructor injection. It was then possible to raise a made up event to check if it is received by the UUT. 
-In a few cases it was necessary to Assert two times in the same test, since we did not wish to have public setter on the state of the state machine. The multiple asserts were namely when checking if the door actually unlocked after having been locked, and closed after having been opened.
+
+In a few cases it was necessary to Assert multiple times in the same test, since we did not wish to have public setter on the state of the state machine. The multiple asserts were to check if all methods in the different states of the state machine were called. The test become rather large, but the alternative would have been to make one test for each method called with the same event fired in each of them which seems like more work to do the same thing.
 
 NSubstitude allowed the tests to simulate that a charger was connected to a phone, which is a condition for the door to be allowed to lock and a new ID to be saved. This was done with the `.Returns()` method that is a part of the fakes methods. The call look like this `_chargeControl.IsConnected.Returns(false);`
 
