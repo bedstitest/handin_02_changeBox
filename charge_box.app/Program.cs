@@ -20,6 +20,7 @@ class Program
                 case ConsoleKey.E:
                     finish = true;
                     break;
+
                 case ConsoleKey.O:
                     //door.OnDoorOpen();
                     break;
@@ -34,6 +35,7 @@ class Program
                     int id = Convert.ToInt32(idString);
                     display.DisplayMessage("status", $"registered RFid: {id}"); 
                     break;
+
                case ConsoleKey.A :
                 // vim movement for testing stuff... 
                     break;
@@ -57,4 +59,3 @@ class Program
         } while (!finish);
     }
 }
-
