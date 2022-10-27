@@ -2,8 +2,6 @@
 {
     public class DoorSimulator : IDoor
     {
-        public DateTime TestTime { get; set; }
-
         private bool _open;
         public event EventHandler<DoorOpenedEventArgs>? DoorOpenedEvent;
         public event EventHandler<DoorClosedEventArgs>? DoorClosedEvent;
@@ -21,19 +19,13 @@
         {
             if (_open)
             {
-                OnDoorOpenedEvent(new DoorOpenedEventArgs
-                {
-                    DoorOpenedTime = TestTime
-                });
+                OnDoorOpenedEvent(new DoorOpenedEventArgs());
             }
         }
 
         public void OnDoorClose()
         {
-            OnDoorClosedEvent(new DoorClosedEventArgs
-            {
-                DoorClosedTime = TestTime
-            });
+            OnDoorClosedEvent(new DoorClosedEventArgs());
         }
 
         private void OnDoorOpenedEvent(DoorOpenedEventArgs e)
