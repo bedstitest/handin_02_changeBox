@@ -1,5 +1,7 @@
-﻿using charge_box.classes;
+﻿using System.Runtime.InteropServices;
+using charge_box.classes;
 using System.Threading;
+using NSubstitute;
 
 namespace charge_box.test;
 
@@ -134,6 +136,7 @@ public class TestLogFileSimulator
     {
         string FilePath_ = Environment.CurrentDirectory;
         int id = 23;
+        
         var testTime = DateTime.Now;
 
         _uut.LogDoorLocked(id);
@@ -142,13 +145,21 @@ public class TestLogFileSimulator
         var testTime2 = DateTime.Now;
 
         _uut.LogDoorLocked(id);
-        Thread.Sleep(50);
-
+        Thread.Sleep(50);  
+        
         string text = File.ReadAllText(FilePath_ + "/logfile.txt");
-        Assert.That(text,
-            Is.EqualTo(
-                $"New logging: \nId: 23\nMessage: Door Has been Locked: {testTime}\nTime of event: {testTime}\nId: 23\nMessage: Door Has been Locked: {testTime2}\nTime of event: {testTime2}\n"));
-
+        var checkString = "";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            checkString =
+                $"New logging: \nId: 23\nMessage: Door Has been Locked: {testTime}\nTime of event: {testTime}\nId: 23\nMessage: Door Has been Locked: {testTime2}\nTime of event: {testTime2}\n";
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            checkString =
+                $"New logging: \r\nId: 23\r\nMessage: Door Has been Locked: {testTime}\r\nTime of event: {testTime}\r\nId: 23\r\nMessage: Door Has been Locked: {testTime2}\r\nTime of event: {testTime2}\r\n";
+        }
+        Assert.That(text,Is.EqualTo(checkString));
 
     }
 
