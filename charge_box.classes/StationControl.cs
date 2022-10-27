@@ -44,6 +44,10 @@ namespace charge_box.classes
             _rfidReader.RfidValueEvent += RfidDetectedEvent;
         }
 
+        private bool CheckId(int oldId, int id)
+        {
+            return oldId == id;
+        }
         private void DoorOpened()
         {
             DoorOpen = true;
@@ -86,7 +90,7 @@ namespace charge_box.classes
 
                 case ChargeboxState.Locked:
                     // Check for correct ID
-                    if (id == OldId)
+                    if (CheckId(OldId, id))
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();

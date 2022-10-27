@@ -24,7 +24,7 @@ public class TestLogFileSimulator
         string FilePath_ = Environment.CurrentDirectory;
         File.Delete(FilePath_+"/logfile.txt");
     }
-    
+
     [Test]
     public void LogDoorUnlocked_assertFilePath_correct()
     {
@@ -126,7 +126,7 @@ public class TestLogFileSimulator
         }
         Assert.That(Fileisnotempty, Is.EqualTo(false));
     }
-    
+
 
     [Test]
 
@@ -144,7 +144,7 @@ public class TestLogFileSimulator
         _uut.LogDoorLocked(id, testTime2);
         Thread.Sleep(50);
 
-        string text = File.ReadAllText(FilePath_+"/logfile.txt");
+        string text = File.ReadAllText(FilePath_ + "/logfile.txt");
         Assert.That(text, Is.EqualTo("New logging: \r\nId: 23\r\nMessage: Door Has been Locked: 13-10-2022 00:00:00\r\nTime of event: 13-10-2022 00:00:00\r\nId: 23\r\nMessage: Door Has been Locked: 13-10-2026 00:00:00\r\nTime of event: 13-10-2026 00:00:00\r\n"));
 
 
