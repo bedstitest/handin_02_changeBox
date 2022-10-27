@@ -1,3 +1,4 @@
+using System;
 namespace charge_box.classes;
 
 public class DisplaySimulator : IDisplay<string>
