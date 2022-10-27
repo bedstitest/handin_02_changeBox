@@ -31,7 +31,6 @@ public class TestDoorSimulator
     [Test]
     public void DoorUnlocked_DoorLocked_DoorOpened_NoEventFired()
     {
-        _uut.UnlockDoor();
         _uut.LockDoor();
         _uut.OnDoorOpen();
         Assert.That(_receivedDoorOpenedEventArgs, Is.Null);
@@ -44,20 +43,9 @@ public class TestDoorSimulator
         Assert.That(_receivedDoorOpenedEventArgs, Is.Not.Null);
     }
     [Test]
-    public void DoorUnlocked_DoorOpened_DateTimeAsExpected()
+    public void DoorClosed_EventFired()
     {
-        var testTime = new DateTime(2022, 10, 13);
-        _uut.TestTime = testTime;
-        _uut.UnlockDoor();
-        _uut.OnDoorOpen();
-        Assert.That(_receivedDoorOpenedEventArgs.DoorOpenedTime, Is.EqualTo(testTime));
-    }
-    [Test]
-    public void DoorClosed_DateTimeAsExpected()
-    {
-        var testTime = new DateTime(2022, 10, 13);
-        _uut.TestTime = testTime;
         _uut.OnDoorClose();
-        Assert.That(_receivedDoorClosedEventArgs.DoorClosedTime, Is.EqualTo(testTime));
+        Assert.That(_receivedDoorClosedEventArgs, Is.Not.Null);
     }
 }
