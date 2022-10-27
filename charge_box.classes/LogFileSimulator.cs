@@ -5,15 +5,17 @@ namespace charge_box.classes
     public class LogFileSimulator : ILogFile
     {        
 
-        public void LogDoorLocked(int id, DateTime TimeOfEvent)
+        public void LogDoorLocked(int id)
         {
-            string message = "Door Has been Locked: " + TimeOfEvent;
+            var TimeOfEvent = DateTime.Now;
+            var message = "Door Has been Locked: " + TimeOfEvent;
             var task = WriteToLog(id, message, TimeOfEvent);
         }
 
-        public void LogDoorUnlocked(int id, DateTime TimeOfEvent)
+        public void LogDoorUnlocked(int id)
         {
-            string message = "Door has been unlocked: ";
+            var TimeOfEvent = DateTime.Now;
+            var message = "Door has been unlocked: ";
             var task = WriteToLog(id, message, TimeOfEvent);
         }
 
@@ -21,10 +23,9 @@ namespace charge_box.classes
         {
             return DateTime.Now;
         }
-        
 
 
-        public static async Task WriteToLog(int id, string message, DateTime TimeOfEvent)
+        private static async Task WriteToLog(int id, string message, DateTime TimeOfEvent)
         {
 
             var workingDirectory = Environment.CurrentDirectory;
@@ -49,20 +50,10 @@ namespace charge_box.classes
             else
 
             {
-                /*
-                using StreamWriter appendfile = new("logfile.txt", append: true);
-                await appendfile.WriteLineAsync(
-                    "Id: " + id.ToString() + "\n Message: " + 
-                    message + "\nTime of event: " + 
-                    TimeOfEvent.ToString() + "\n");
-                appendfile.Close();
-                */
-                using (StreamWriter sw = File.AppendText(file))
-                {
-                    sw.WriteLine("Id: " + id.ToString());
-                    sw.WriteLine("Message: " + message);
-                    sw.WriteLine("Time of event: " + TimeOfEvent.ToString());
-                }
+                await using var sw = File.AppendText(file);
+                await sw.WriteLineAsync("Id: " + id.ToString());
+                await sw.WriteLineAsync("Message: " + message);
+                await sw.WriteLineAsync("Time of event: " + TimeOfEvent.ToString());
             }
             
                 

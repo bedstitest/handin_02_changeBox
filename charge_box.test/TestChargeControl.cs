@@ -15,13 +15,13 @@ namespace charge_box.test
         private ChargeControl _uut;
 
         private IUsbCharger _charger;
-        private IDisplay _display;
+        private IDisplay<string> _display;
 
         [SetUp]
         public void Setup()
         {
             _charger = Substitute.For<IUsbCharger>();
-            _display = Substitute.For<IDisplay>();
+            _display = Substitute.For<IDisplay<string>>();
             _uut = new ChargeControl(_display, _charger);
         }
 

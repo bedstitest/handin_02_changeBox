@@ -11,7 +11,7 @@ public class TestStationController
 
     private IChargeControl _chargeControl;
     private IDoor _door;
-    private IDisplay _display;
+    private IDisplay<string> _display;
     private IRfidReader _rfidReader;
     private ILogFile _logFile;
 
@@ -20,7 +20,7 @@ public class TestStationController
     {
         _chargeControl = Substitute.For<IChargeControl>();
         _door = Substitute.For<IDoor>();
-        _display = Substitute.For<IDisplay>();
+        _display = Substitute.For<IDisplay<string>>();
         _rfidReader = Substitute.For<IRfidReader>();
         _logFile = Substitute.For<ILogFile>();
         _uut = new StationControl(_chargeControl, _door, _display, _logFile, _rfidReader);

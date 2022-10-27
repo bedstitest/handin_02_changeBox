@@ -73,7 +73,7 @@ namespace charge_box.classes
                         _door.LockDoor();
                         _charger.StartCharge();
                         OldId = id;
-                        _logFile.LogDoorLocked(id, DateTime.Now);
+                        _logFile.LogDoorLocked(id);
 
                         _display.DisplayMessage("user", "Charge box is locked and phone is charging. Use ye taggy thingy to unlock");
                         _state = ChargeboxState.Locked;
@@ -94,7 +94,7 @@ namespace charge_box.classes
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
-                        _logFile.LogDoorUnlocked(id, DateTime.Now);
+                        _logFile.LogDoorUnlocked(id);
 
                         _display.DisplayMessage("user", "Pick up ye phone and close the door");
                         _state = ChargeboxState.Available;

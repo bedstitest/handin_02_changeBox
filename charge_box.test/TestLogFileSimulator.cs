@@ -31,7 +31,7 @@ public class TestLogFileSimulator
         string FilePath_ = Environment.CurrentDirectory;
         _idnumber = 123;
         _logDate = DateTime.Now;
-        _uut.LogDoorUnlocked(_idnumber, _logDate);
+        _uut.LogDoorUnlocked(_idnumber);
         if (File.Exists(FilePath_ + "/logfile.txt"))
         {
             _CheckIfFileExist = true;
@@ -50,7 +50,7 @@ public class TestLogFileSimulator
         string FilePath_ = Environment.CurrentDirectory;
         _idnumber = 123;
         _CheckIfFileExist = true;
-        _uut.LogDoorUnlocked(_idnumber, _logDate = _uut.GetCurrentTime());
+        _uut.LogDoorUnlocked(_idnumber);
         if (File.Exists(FilePath_ + "ShouldntExist.txt"))
         {
             _CheckIfFileExist = true;
@@ -68,7 +68,7 @@ public class TestLogFileSimulator
     {
         string FilePath_ = Environment.CurrentDirectory;
         _idnumber = 123;
-        _uut.LogDoorLocked(_idnumber, _logDate = _uut.GetCurrentTime());
+        _uut.LogDoorLocked(_idnumber);
         if (File.Exists(FilePath_ + "/logfile.txt"))
         {
             _CheckIfFileExist = true;
@@ -87,7 +87,7 @@ public class TestLogFileSimulator
         string FilePath_ = Environment.CurrentDirectory;
         _idnumber = 123;
         _CheckIfFileExist = true;
-        _uut.LogDoorLocked(_idnumber, _logDate = _uut.GetCurrentTime());
+        _uut.LogDoorLocked(_idnumber);
         if (File.Exists(FilePath_ + "ShouldntExist.txt"))
         {
             _CheckIfFileExist = true;
@@ -117,7 +117,7 @@ public class TestLogFileSimulator
         string FilePath_ = Environment.CurrentDirectory;
         int id = 23;
         var testTime = new DateTime(2022, 10, 13);
-        _uut.LogDoorUnlocked(id, testTime);
+        _uut.LogDoorUnlocked(id);
 
         if (new FileInfo(FilePath_+ "/logfile.txt").Length > 0)
         {
@@ -134,18 +134,20 @@ public class TestLogFileSimulator
     {
         string FilePath_ = Environment.CurrentDirectory;
         int id = 23;
-        var testTime = new DateTime(2022, 10, 13);
+        var testTime = DateTime.Now;
 
-        _uut.LogDoorLocked(id, testTime);
+        _uut.LogDoorLocked(id);
 
         Thread.Sleep(50);
-        var testTime2 = new DateTime(2026, 10, 13);
+        var testTime2 = DateTime.Now;
 
-        _uut.LogDoorLocked(id, testTime2);
+        _uut.LogDoorLocked(id);
         Thread.Sleep(50);
 
         string text = File.ReadAllText(FilePath_ + "/logfile.txt");
-        Assert.That(text, Is.EqualTo("New logging: \r\nId: 23\r\nMessage: Door Has been Locked: 13-10-2022 00:00:00\r\nTime of event: 13-10-2022 00:00:00\r\nId: 23\r\nMessage: Door Has been Locked: 13-10-2026 00:00:00\r\nTime of event: 13-10-2026 00:00:00\r\n"));
+        Assert.That(text,
+            Is.EqualTo(
+                $"New logging: \nId: 23\nMessage: Door Has been Locked: {testTime}\nTime of event: {testTime}\nId: 23\nMessage: Door Has been Locked: {testTime2}\nTime of event: {testTime2}\n"));
 
 
     }
