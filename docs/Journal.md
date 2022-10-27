@@ -56,10 +56,10 @@ x7. En refleksion over jeres valgte design (hvorfor, fordele og ulemper, ikke en
 ### Class diagram
 ![class diagram](figs/classDiagram.svg)
 
-- We have created interfaces to all depenencies to ensure that the two control classes can be tested
-- We discussed whether the class Door should have two seperate events. We ended up with two different events to ensure that the two events are easily distinguishable. The same could probably have been acomlished with one event containing an additional property.
+- We have created interfaces to all dependencies to ensure that the two control classes can be tested
+- We discussed whether the class Door should have two seperate events. We ended up with two different events to ensure that the two events are easily distinguishable. The same could probably have been accomplished with one event containing an additional property.
 - All peripheral classes, `Door`, `Display`, `RfidReader`, `LogFile`, `UsbCharger` were made in simulated versions, to make the system testable.
-- We chose deviate as little as possible from the design sketch in the assignment description to be able to focus as much as possible on testing rather than development.
+- We chose to deviate as little as possible from the design sketch in the assignment description to be able to focus as much as possible on testing rather than development.
 
 ### Sequence diagram
 The sequence diagram from the assignment description was followed. We did not create a new one.
@@ -67,10 +67,10 @@ The sequence diagram from the assignment description was followed. We did not cr
 ## Seperation of work and collaboration
 
 **The design** was done in collaboration, collected around a (digital) white board. 
-This meant that everbody was updated and informed about the desition, aswell as making sure everbodys ideas were heard. 
+This meant that everbody was updated and informed about the decision, aswell as making sure everbody's ideas were heard. 
 
 **The implementation** 
-The responsiblity of implementation of the classes and the corresponding tests where separated between group members, to achive higher black box testing and to make sure that everybody could work independantly of each other.
+The responsiblity of implementation of the classes and the corresponding tests where separated between group members, to achieve higher black box testing and to make sure that everybody could work independantly of each other.
 
 ## Descriptions and reflections about testing
 ### Door
