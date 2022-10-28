@@ -44,6 +44,7 @@ x7. En refleksion over jeres valgte design (hvorfor, fordele og ulemper, ikke en
 - [Using CI and GitHub](#using-ci-and-github)
   - [Jenkins](#jenkins)
   - [GitHub](#github)
+  - [Workflow](#workflow)
 
 <div style="page-break-after: always;"></div>
 
@@ -86,6 +87,9 @@ To test the the door lock the method `LockDoor()` was called as the action and t
 ### LogFile
 
 
+
+Originally the LogFile class was implemented by the use of async, await and tasks. However, this resulted in race conditions between the respective tests and the teardown function which lead to errors from time to time. It was unpredictable to foresee the outcome of a test because it was determined by how fast each of the tests ran in that instance and how the scheduler had assigned timeslots for the different tasks. In the end it was decided to remove the async await and implement the write functionality simpler with the use of a void method.
+
 ### RfidReader
 The RfidReaderSimulator class works a lot like the other "boundary" classes such as door. The class has an interface called IRfidReader where an event is defined. The event is based on a class called RfidDetectedEventArgs which inherits from EventArgs and contains a single Id which is used to identify what kind of Rfid that has been scanned. The event connected to the RfidReader triggers whenever someone scans their ID. In order to test this class another class was made RfidReaderSimulatorTest. The test class contains a `[SetUp]` function where the UUT is initialised and not much differs from normal testing classes in that sense. Since there is only a property and an event there isn't a lot to test. The interesting part is the event. The event has to be triggered exactly when a user scans their rfid. The test method `[SetId_OnDetectedEvent]` sets the Id by using the property in the RfidReaderSimulator class and test that an event has been sent and that the Id in that event matches the one that has been set by the property. Therefore the assertion is made on the RfidDetectedEventArgs Id property. The event is faked and setup in the `[SetUp]` function of the test class.
 
@@ -115,3 +119,5 @@ Using Jenkins has given valuable insight into how well our tests were written an
 ### GitHub
 The group used branching and pull requests to ensure that the main branch was always in a good state.
 This allowed us to review each others code before merging it into the main branch.
+
+### Workflow
