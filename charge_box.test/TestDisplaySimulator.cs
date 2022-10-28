@@ -49,7 +49,7 @@ public class TestDisplaySimulator
       var correct = "";
       for (int i = 0; i < 4; i++)
       {
-         correct += "test".PadRight(Console.BufferWidth - 2) + "\n";
+         correct += "test".PadRight(_console.BufferWidth - 2) + "\n";
       }
 
       var output = sw.ToString();
