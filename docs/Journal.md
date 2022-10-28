@@ -17,6 +17,7 @@ x10. En refleksion over hvordan arbejdet gik med at bruge et fælles repository 
 
 <!-- omit in toc -->
 ## Group 4 handin information
+
 |   | Name                         | Student Number |
 |---|------------------------------|----------------|
 | 1 | Atren Amanoel Darvesh        | 201405993      |
@@ -45,6 +46,7 @@ x10. En refleksion over hvordan arbejdet gik med at bruge et fælles repository 
   - [Jenkins](#jenkins)
   - [GitHub](#github)
   - [Workflow](#workflow)
+  - [Test coverage](#test-coverage)
 
 <div style="page-break-after: always;"></div>
 
@@ -101,7 +103,17 @@ This made it really hard to discovered the issuses before they landed on jenkins
 
 To fixit, an interface defining the used parts of the console class was created. 
 This interface could then be used sustitute the problematic console metoeds and propertyes. 
-On commit 
+On commit [56ed0cf](https://github.com/bedstitest/handin_02_changeBox/commit/56ed0cf06e77704ba411a3865c262f6c52818dfb) an attempt to partically substitute the consoleSimulator implementation can be seen. 
+However this attempt still called the real code of the methods that was atempted substituted. 
+
+This resulted in explicite implementation of a fakeConsoleSimulator, as it can be seen in the current state of the implemetnation. 
+
+In conclusion, system and enviorment spicfic dependencies allso need to substituted. 
+Since they can vary between ssytems. 
+This also means that the behavior of cannot truly be verified between the systems. 
+But it must be assumed that the .net team knows what they are doing.
+
+
 ### LogFile
 Since it is the logfile class' responsibility to create logs when the door unlocks and locks. The way to test this is to validate that the information being written into a file is the same as the data that is being expected. Some of the tests in LogFile therefore assert on whether or not the file is created properly and if the file isn't empty. 
 
@@ -144,3 +156,10 @@ This allowed us to review each others code before merging it into the main branc
 
 ### Workflow
 During the completion of the assignment the group has been using GitHub and Jenkins. As mentioned earlier, github has been used to review code but the most important part was (obviously) parrallel workflows. It was of great assistance to split the work between all the group members and work on seperate occations especially with branching. This way the individual group members could work on their own classes and create tests for said classes. The only problem that could occur was if the tests hadn't been run locally before merging into the main git branch as this would result in errors for the group members pulling said tests. The simple fix would be to always run tests locally and make sure they work before actually merging them into the main branch. It was problematic if the merge (pull) request weren't reviewed before they were merged as this didn't provide optimal coverage of the code.
+
+
+### Test coverage 
+
+The coverage did not accive 100% test coverage primaryly because of the the introduction of the consoleSimulator, that wraped the methoed used in display form system.Console.
+This classes simply calls system mehtoed, that should have been tested and variefied by the .net team. 
+
