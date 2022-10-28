@@ -8,8 +8,8 @@ x5. Klasse-, sekvens- og andre nyttige diagrammer med forklaringer, som beskrive
 x6. Jeres design skal tage højde for den ikke eksisterende hardware og andre svært kontrollerbare afhængigheder og indkapsle dem, således at der kan testes gennem fakes
 x7. En refleksion over jeres valgte design (hvorfor, fordele og ulemper, ikke en beskrivelse, den gav I ovenfor)
 8. En beskrivelse og refleksion over hvordan I har valgt at teste
-?9. En beskrivelse og refleksion over hvordan I fordelte arbejdet imellem jer (hvordan, hvorfor, fordele og ulemper)
-?10. En refleksion over hvordan arbejdet gik med at bruge et fælles repository og et continuous integration system (observationer, fordele og ulemper))
+x9. En beskrivelse og refleksion over hvordan I fordelte arbejdet imellem jer (hvordan, hvorfor, fordele og ulemper)
+x10. En refleksion over hvordan arbejdet gik med at bruge et fælles repository og et continuous integration system (observationer, fordele og ulemper))
 -->
 
 <!-- omit in toc -->
@@ -68,7 +68,7 @@ The sequence diagram from the assignment description was followed. We did not cr
 ## Seperation of work and collaboration
 
 **The design** was done in collaboration, collected around a (digital) white board. 
-This meant that everbody was updated and informed about the decision, aswell as making sure everbody's ideas were heard. 
+This meant that everbody was updated and informed about the decision, as well as making sure everbody's ideas were heard. 
 
 **The implementation** 
 The responsiblity of implementation of the classes and the corresponding tests where separated between group members, to achieve higher black box testing and to make sure that everybody could work independantly of each other.
@@ -86,6 +86,7 @@ To test the the door lock the method `LockDoor()` was called as the action and t
 
 
 ### LogFile
+Since it is the logfile class' responsibility to create logs when the door unlocks and locks. The way to test this is to validate that the information being written into a file is the same as the data that is being expected. Some of the tests in LogFile therefore assert on whether or not the file is created properly and if the file isn't empty. 
 
 Originally the LogFile class was implemented by the use of async, await and tasks. However, this resulted in race conditions between the respective tests and the teardown function which lead to errors from time to time. It was unpredictable to foresee the outcome of a test because it was determined by how fast each of the tests ran in that instance and how the scheduler had assigned timeslots for the different tasks. In the end it was decided to remove the async await and implement the write functionality simpler with the use of a void method.
 
