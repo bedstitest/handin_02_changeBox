@@ -23,7 +23,7 @@ public class TestDisplaySimulator
    [TearDown]
    public void TearDown()
    {
-     File.Delete(_testOutputString);
+       File.Delete(_testOutputString);
    }
 
    [Test]
@@ -33,9 +33,10 @@ public class TestDisplaySimulator
       
       Assert.Throws<KeyNotFoundException>(
          () => _uut.DisplayMessage("notAKey","message"));
-   }
 
-   [Test]
+    }
+
+    [Test]
    public void TestingOutputs()
    {
 

@@ -9,17 +9,17 @@ namespace charge_box.classes
         {
             var TimeOfEvent = DateTime.Now;
             var message = "Door Has been Locked: " + TimeOfEvent;
-            var task = WriteToLog(id, message, TimeOfEvent);
+            WriteToLog(id, message, TimeOfEvent);
         }
 
         public void LogDoorUnlocked(int id)
         {
             var TimeOfEvent = DateTime.Now;
-            var message = "Door has been unlocked: ";
-            var task = WriteToLog(id, message, TimeOfEvent);
+            var message = "Door has been unlocked: "; 
+            WriteToLog(id, message, TimeOfEvent);
         }
 
-        private static async Task WriteToLog(int id, string message, DateTime TimeOfEvent)
+        private void WriteToLog(int id, string message, DateTime TimeOfEvent)
         {
 
             var workingDirectory = Environment.CurrentDirectory;
@@ -38,16 +38,16 @@ namespace charge_box.classes
                     "Time of event: " + TimeOfEvent.ToString()
 
                 };
-                await File.WriteAllLinesAsync("logfile.txt", lines);
+                File.WriteAllLines("logfile.txt", lines);
                 
             }
             else
 
             {
-                await using var sw = File.AppendText(file);
-                await sw.WriteLineAsync("Id: " + id.ToString());
-                await sw.WriteLineAsync("Message: " + message);
-                await sw.WriteLineAsync("Time of event: " + TimeOfEvent.ToString());
+                using var sw = File.AppendText(file);
+                sw.WriteLine("Id: " + id.ToString());
+                sw.WriteLine("Message: " + message);
+                sw.WriteLine("Time of event: " + TimeOfEvent.ToString());
             }
             
                 
