@@ -86,8 +86,6 @@ To test the the door lock the method `LockDoor()` was called as the action and t
 
 ### LogFile
 
-
-
 Originally the LogFile class was implemented by the use of async, await and tasks. However, this resulted in race conditions between the respective tests and the teardown function which lead to errors from time to time. It was unpredictable to foresee the outcome of a test because it was determined by how fast each of the tests ran in that instance and how the scheduler had assigned timeslots for the different tasks. In the end it was decided to remove the async await and implement the write functionality simpler with the use of a void method.
 
 ### RfidReader
@@ -107,6 +105,8 @@ In a few cases it was necessary to Assert multiple times in the same test, since
 NSubstitude allowed the tests to simulate that a charger was connected to a phone, which is a condition for the door to be allowed to lock and a new ID to be saved. This was done with the `.Returns()` method that is a part of the fakes methods. The call look like this `_chargeControl.IsConnected.Returns(false);`
 
 `OldId` and `DoorOpen` were both originally attributes, but since they were found necessary in some tests, they were made into properties with private setters. This allowed for the tests to actually assert on their value.
+
+The line coverage for the StationControl class is currently on 98.4% because the case where the user tries to scan an rfid while the door is open doesn't impact the system in any way.
 
 ## Using CI and GitHub 
 ### Jenkins 

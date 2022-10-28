@@ -8,7 +8,11 @@ namespace charge_box.classes
 {
     public class ChargeControl : IChargeControl
     {
-        public bool IsConnected { get; set; }
+        public bool IsConnected
+        {
+            get => _charger.Connected;
+        }
+
         private IDisplay<string> _display;
         private IUsbCharger _charger;
 

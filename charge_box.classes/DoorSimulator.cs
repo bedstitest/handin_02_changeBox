@@ -2,22 +2,22 @@
 {
     public class DoorSimulator : IDoor
     {
-        private bool _open;
+        private bool _locked;
         public event EventHandler<DoorOpenedEventArgs>? DoorOpenedEvent;
         public event EventHandler<DoorClosedEventArgs>? DoorClosedEvent;
         public void UnlockDoor()
         {
-            _open = true;
+            _locked = false;
         }
 
         public void LockDoor()
         {
-            _open = false;
+            _locked = true;
         }
 
         public void OnDoorOpen()
         {
-            if (_open)
+            if (!_locked)
             {
                 OnDoorOpenedEvent(new DoorOpenedEventArgs());
             }

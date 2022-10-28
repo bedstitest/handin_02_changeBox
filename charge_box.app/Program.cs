@@ -37,12 +37,17 @@ class Program
                 case ConsoleKey.C:
                     door.OnDoorClose();
                     break;
-
+                case ConsoleKey.F:
+                    usbCharger.SimulateOverload(true);
+                    break;
+                case ConsoleKey.U:
+                    usbCharger.SimulateOverload(false);
+                    break;
                 case ConsoleKey.R:
                     display.DisplayMessage("user","Indtast RFID id: ");
                     string idString = System.Console.ReadLine();
                     int id = Convert.ToInt32(idString);
-                    rfidReader.id = id;
+                    rfidReader.Id = id;
                     display.DisplayMessage("status", $"registered RFid: {id}"); 
                     break;
 
