@@ -12,7 +12,6 @@ namespace charge_box.classes
         public bool IsConnected
         {
             get => _charger.Connected;
-            set => isConnected = value;
         }
 
         private IDisplay<string> _display;
