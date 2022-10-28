@@ -87,7 +87,7 @@ To test the the door lock the method `LockDoor()` was called as the action and t
 
 
 ### RfidReader
-
+The RfidReaderSimulator class works a lot like the other "boundary" classes such as door. The class has an interface called IRfidReader where an event is defined. The event is based on a class called RfidDetectedEventArgs which inherits from EventArgs and contains a single Id which is used to identify what kind of Rfid that has been scanned. The event connected to the RfidReader triggers whenever someone scans their ID. In order to test this class another class was made RfidReaderSimulatorTest. The test class contains a `[SetUp]` function where the UUT is initialised and not much differs from normal testing classes in that sense. Since there is only a property and an event there isn't a lot to test. The interesting part is the event. The event has to be triggered exactly when a user scans their rfid. The test method `[SetId_OnDetectedEvent]` sets the Id by using the property in the RfidReaderSimulator class and test that an event has been sent and that the Id in that event matches the one that has been set by the property. Therefore the assertion is made on the RfidDetectedEventArgs Id property. The event is faked and setup in the `[SetUp]` function of the test class.
 
 ### UsbCharger
 The `UsbChargerSimulator` class was a part of the handout along with an interface and tests. All we had to do was adapt them with our namespace.

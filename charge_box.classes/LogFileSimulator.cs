@@ -19,12 +19,6 @@ namespace charge_box.classes
             var task = WriteToLog(id, message, TimeOfEvent);
         }
 
-        public DateTime GetCurrentTime()
-        {
-            return DateTime.Now;
-        }
-
-
         private static async Task WriteToLog(int id, string message, DateTime TimeOfEvent)
         {
 
