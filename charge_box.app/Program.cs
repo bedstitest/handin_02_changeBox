@@ -5,22 +5,23 @@ class Program
     static void Main(string[] args)
     {
         var door = new DoorSimulator();
-        var rfidReader = new RfidReaderSimulator();
-        IDisplay<string> display = new DisplaySimulator();
+        //var rfidReader = new RfidReaderSimulator();
         ILogFile logFile = new LogFileSimulator();
-        var usbCharger = new UsbChargerSimulator();
-        IChargeControl chargeControl = new ChargeControl(display, usbCharger);
+        IUsbCharger usbCharger = new UsbChargerSimulator();
+        //IChargeControl chargeControl = new ChargeControlSimulator(display, usbCharger);
 
 
-        var stationControl = new StationControl(chargeControl, door, display, logFile, rfidReader);
+        //var stationControl = new StationControl(chargeControl, door, display, logFile, rfidReader);
         // Assemble your system here from all the classes
 
         var finish = false;
+        IDisplay<string> display = new DisplaySimulator(new ConsoleSimulator());
+        
         do
         {
             display.DisplayMessage("systemInfo", 
                 $"width: {Console.BufferWidth} & {Console.WindowWidth} Height: {Console.BufferHeight} & {Console.WindowHeight} ({Console.GetCursorPosition()})".PadLeft(Console.BufferWidth));
-            display.DisplayMessage("menu","Enter O, S, C, R, F, E: ");
+            display.DisplayMessage("menu","Enter E, O, C, R: ");
             var input = Console.ReadKey(true);
             switch (input.Key)
             {
@@ -29,25 +30,17 @@ class Program
                     break;
 
                 case ConsoleKey.O:
-                    door.OnDoorOpen();
+                    //door.OnDoorOpen();
                     break;
-                case ConsoleKey.S:
-                    usbCharger.SimulateConnected(true);
-                    break;
+
                 case ConsoleKey.C:
-                    door.OnDoorClose();
+                    //door.OnDoorClose();
                     break;
-                case ConsoleKey.F:
-                    usbCharger.SimulateOverload(true);
-                    break;
-                case ConsoleKey.U:
-                    usbCharger.SimulateOverload(false);
-                    break;
+
                 case ConsoleKey.R:
                     display.DisplayMessage("user","Indtast RFID id: ");
                     string idString = System.Console.ReadLine();
                     int id = Convert.ToInt32(idString);
-                    rfidReader.Id = id;
                     display.DisplayMessage("status", $"registered RFid: {id}"); 
                     break;
 
