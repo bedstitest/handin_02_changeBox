@@ -74,7 +74,7 @@ namespace charge_box.test
         [Test]
         public void StartCharge_DelegatingMethodCalls()
         {
-            _uut.IsConnected = true;
+            _charger.Connected.Returns(true);
             _uut.StartCharge();
             _charger.Received(1).StartCharge();
             _display.Received(1).DisplayMessage("status","Charging has begun");
@@ -82,7 +82,7 @@ namespace charge_box.test
         [Test]
         public void StartCharge_DelegatingMethodCallsFalse()
         {
-            _uut.IsConnected = false;
+            _charger.Connected.Returns(false);
             _uut.StartCharge();
             _charger.Received(0).StartCharge();
             _display.Received(0).DisplayMessage("status","Charging has begun");
