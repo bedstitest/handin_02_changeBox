@@ -5,23 +5,22 @@ class Program
     static void Main(string[] args)
     {
         var door = new DoorSimulator();
-        //var rfidReader = new RfidReaderSimulator();
+        var rfidReader = new RfidReaderSimulator();
+        IDisplay<string> display = new DisplaySimulator();
         ILogFile logFile = new LogFileSimulator();
-        IUsbCharger usbCharger = new UsbChargerSimulator();
-        //IChargeControl chargeControl = new ChargeControlSimulator(display, usbCharger);
+        var usbCharger = new UsbChargerSimulator();
+        IChargeControl chargeControl = new ChargeControl(display, usbCharger);
 
 
-        //var stationControl = new StationControl(chargeControl, door, display, logFile, rfidReader);
+        var stationControl = new StationControl(chargeControl, door, display, logFile, rfidReader);
         // Assemble your system here from all the classes
 
-        bool finish = false;
-        IDisplay<string> display = new DisplaySimulator();
-        
+        var finish = false;
         do
         {
             display.DisplayMessage("systemInfo", 
                 $"width: {Console.BufferWidth} & {Console.WindowWidth} Height: {Console.BufferHeight} & {Console.WindowHeight} ({Console.GetCursorPosition()})".PadLeft(Console.BufferWidth));
-            display.DisplayMessage("menu","Enter E, O, C, R: ");
+            display.DisplayMessage("menu","Enter E, S, O, C, R: ");
             var input = Console.ReadKey(true);
             switch (input.Key)
             {
@@ -30,17 +29,20 @@ class Program
                     break;
 
                 case ConsoleKey.O:
-                    //door.OnDoorOpen();
+                    door.OnDoorOpen();
                     break;
-
+                case ConsoleKey.S:
+                    usbCharger.SimulateConnected(true);
+                    break;
                 case ConsoleKey.C:
-                    //door.OnDoorClose();
+                    door.OnDoorClose();
                     break;
 
                 case ConsoleKey.R:
                     display.DisplayMessage("user","Indtast RFID id: ");
                     string idString = System.Console.ReadLine();
                     int id = Convert.ToInt32(idString);
+                    rfidReader.id = id;
                     display.DisplayMessage("status", $"registered RFid: {id}"); 
                     break;
 
