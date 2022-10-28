@@ -31,6 +31,20 @@ namespace charge_box.test
         }
 
         [Test]
+        public void GetId()
+        {
+            _uut.Id = 1;
+            Assert.That(_uut.Id, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void SetId_OnDetectEventFired()
+        {
+            _uut.Id = 1;
+            Assert.That(_RfidDetectedEventArgs, Is.Not.Null);
+        }
+
+        [Test]
         public void SetId_changeValue()
         {
             _uut.Id = 2;
