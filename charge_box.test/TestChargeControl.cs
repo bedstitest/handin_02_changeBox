@@ -74,9 +74,18 @@ namespace charge_box.test
         [Test]
         public void StartCharge_DelegatingMethodCalls()
         {
+            _charger.Connected.Returns(true);
             _uut.StartCharge();
             _charger.Received(1).StartCharge();
-            _display.DisplayMessage("status","Charging has begun");
+            _display.Received(1).DisplayMessage("status","Charging has begun");
+        }
+        [Test]
+        public void StartCharge_DelegatingMethodCallsFalse()
+        {
+            _charger.Connected.Returns(false);
+            _uut.StartCharge();
+            _charger.Received(0).StartCharge();
+            _display.Received(0).DisplayMessage("status","Charging has begun");
         }
         #endregion
 

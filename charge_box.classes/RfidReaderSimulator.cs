@@ -3,7 +3,7 @@ namespace charge_box.classes
     public class RfidReaderSimulator : IRfidReader
     {
         public event EventHandler<RfidDetectedEventArgs> RfidValueEvent;
-        public int id;
+        private int id;
 
         public RfidReaderSimulator()
         {

@@ -25,6 +25,7 @@ public class TestLogFileSimulator
     {
         string FilePath_ = Environment.CurrentDirectory;
         File.Delete(FilePath_+"/logfile.txt");
+
     }
 
     [Test]
