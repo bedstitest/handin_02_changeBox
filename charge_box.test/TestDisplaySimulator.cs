@@ -18,7 +18,7 @@ public class TestDisplaySimulator
    [SetUp]
    public void Setup()
    {
-      _console = Substitute.ForPartsOf<ConsoleSimulator>();
+      _console = new FakeConsoleSimulator();
       _uut = new DisplaySimulator(_console);
       
    }
@@ -31,7 +31,6 @@ public class TestDisplaySimulator
    [Test]
    public void TestingNotExistingDisplayArea()
    {
-      
       Assert.Throws<KeyNotFoundException>(
          () => _uut.DisplayMessage("notAKey","message"));
    }
@@ -39,9 +38,6 @@ public class TestDisplaySimulator
    [Test]
    public void TestingOutputs()
    {
-      _console.When(x => x.SetCursorPosition(default, default)).DoNotCallBase();
-      _console.When(x => x.GetCursorPosition()).DoNotCallBase();
-      _console.When(x => x.Clear()).DoNotCallBase();
       var sw = new StringWriter();
       Console.SetOut(sw);
       _uut.DisplayMessage("systemInfo", "test");
@@ -53,7 +49,7 @@ public class TestDisplaySimulator
       var correct = "";
       for (int i = 0; i < 4; i++)
       {
-         correct += "test".PadRight(Console.BufferWidth - 2) + "\n";
+         correct += "test".PadRight(_console.BufferWidth - 2) + "\n";
       }
 
       var output = sw.ToString();
