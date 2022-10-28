@@ -8,7 +8,7 @@ namespace charge_box.classes
 {
     public class ChargeControl : IChargeControl
     {
-        public bool IsConnected { get; }
+        public bool IsConnected { get; set; }
         private IDisplay<string> _display;
         private IUsbCharger _charger;
 
@@ -21,8 +21,11 @@ namespace charge_box.classes
 
         public void StartCharge()
         {
-            _display.DisplayMessage("status","Charging has begun");
-            _charger.StartCharge();
+            if (IsConnected)
+            {
+                _display.DisplayMessage("status", "Charging has begun");
+                _charger.StartCharge();
+            }
         }
 
         public void StopCharge()
