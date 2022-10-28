@@ -84,6 +84,7 @@ To test the the door lock the method `LockDoor()` was called as the action and t
 ### Display
 
 
+
 ### LogFile
 
 Originally the LogFile class was implemented by the use of async, await and tasks. However, this resulted in race conditions between the respective tests and the teardown function which lead to errors from time to time. It was unpredictable to foresee the outcome of a test because it was determined by how fast each of the tests ran in that instance and how the scheduler had assigned timeslots for the different tasks. In the end it was decided to remove the async await and implement the write functionality simpler with the use of a void method.
@@ -96,6 +97,9 @@ The `UsbChargerSimulator` class was a part of the handout along with an interfac
 
 ### ChargeControl
 
+In order to test the ChargeControl class, NSubstitute was used to make fakes of the "boundary" classes that are used in the ChargeControl class. The constructor in ChargeControl is used to inject dependencies from the Display and UsbCharger classes by using their interfaces. The interfaces were then also used to create fakes by using NSubstitude. This was done in the `[SetUp]` method in the TestChargeControl class. The UUT (unit under test) could then be created by injecting the fakes into the constructor of the new ChargeControl object. 
+
+For the ChargeControl there are 2 sets of test. The first one is events. By 'events' it is meant that the ChargeControl uses the fakes created by NSubstitute to raise events and assert on the raised events. The other kind of tests were done by using the methods in the ChargeControl class which would call the methods in the "boundary" (Display and UsbCharger) classes, that would then invoke an event that the ChargeControl class could handle.
 
 ### StationControl
 To test this class NSubstitute was used to make fakes of all dependencies. To use the dependancy-fakes the StationContol class uses constructor injection. It was then possible to raise a made up event to check if it is received by the UUT. 
@@ -121,3 +125,4 @@ The group used branching and pull requests to ensure that the main branch was al
 This allowed us to review each others code before merging it into the main branch.
 
 ### Workflow
+During the completion of the assignment the group has been using GitHub and Jenkins. As mentioned earlier, github has been used to review code but the most important part was (obviously) parrallel workflows. It was of great assistance to split the work between all the group members and work on seperate occations especially with branching. This way the individual group members could work on their own classes and create tests for said classes. The only problem that could occur was if the tests hadn't been run locally before merging into the main git branch as this would result in errors for the group members pulling said tests. The simple fix would be to always run tests locally and make sure they work before actually merging them into the main branch. It was problematic if the merge (pull) request weren't reviewed before they were merged as this didn't provide optimal coverage of the code.

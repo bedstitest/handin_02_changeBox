@@ -20,7 +20,7 @@ class Program
         {
             display.DisplayMessage("systemInfo", 
                 $"width: {Console.BufferWidth} & {Console.WindowWidth} Height: {Console.BufferHeight} & {Console.WindowHeight} ({Console.GetCursorPosition()})".PadLeft(Console.BufferWidth));
-            display.DisplayMessage("menu","Enter E, S, O, C, R: ");
+            display.DisplayMessage("menu","Enter O, S, C, R, F, E: ");
             var input = Console.ReadKey(true);
             switch (input.Key)
             {
