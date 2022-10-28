@@ -71,7 +71,11 @@ The sequence diagram from the assignment description was followed. We did not cr
 This meant that everbody was updated and informed about the decision, as well as making sure everbody's ideas were heard. 
 
 **The implementation** 
-The responsiblity of implementation of the classes and the corresponding tests where separated between group members, to achieve higher black box testing and to make sure that everybody could work independantly of each other.
+Each group member was chared with implenting one or more sets of interfaces and implementation. The tests of the implementaions where for the most part allso done by the group members who implemented them. 
+Once the implementation where close to being finished and bogs, errors and other fun stuff started to appear, the group tackeled these things in a more dynamic manner. Contributing all over the project. 
+To cordinate the implementation process, each group member broke off into feature or fixing branches, that could be merged back into main when a accetble state was acchived. 
+
+These merges where done primaryly though git pull request between the master branch and the development branch. 
 
 ## Descriptions and reflections about testing
 ### Door
@@ -83,8 +87,21 @@ To test the the door lock the method `LockDoor()` was called as the action and t
 
 ### Display
 
+The display used the system.Console class to do must of this displaying. 
+This resulted in quite a few funny situations, where diffrent parts of the system class, where not implemened the group members different operating systems. 
+This in its self where pretty harmless, up on till the point where it was discovered that it was not only missing implementations, but allso diffrennt implementations  on the the OS's. 
 
+The issuse was to confirm that the output from the display reached its intented locations. 
+To do this the console output buffer was replaced with a stringWriter. 
+The actions performed on the strign writer in the unix enviorment was perfectly fine. 
+since the output of clear(), setCursorPosition() and other console methoed unrolled to nothing.
+Where on the windows, these calles on a strignWriter, resulted with a natAHandle exception. 
 
+This made it really hard to discovered the issuses before they landed on jenkins. 
+
+To fixit, an interface defining the used parts of the console class was created. 
+This interface could then be used sustitute the problematic console metoeds and propertyes. 
+On commit 
 ### LogFile
 Since it is the logfile class' responsibility to create logs when the door unlocks and locks. The way to test this is to validate that the information being written into a file is the same as the data that is being expected. Some of the tests in LogFile therefore assert on whether or not the file is created properly and if the file isn't empty. 
 
